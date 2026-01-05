@@ -30,7 +30,8 @@ WHERE email IN (
   'lee2000@hexschooltest.io',
   'muscle@hexschooltest.io',
   'starplatinum@hexschooltest.io'
-);
+)
+AND role = 'USER';
 
 -- 1-3 刪除：刪除USER 資料表中，用 Email 找到透明人，並刪除該筆資料
 DELETE FROM "USER"
@@ -41,9 +42,37 @@ SELECT COUNT(*) as total_users
 FROM "USER";
 
 -- 1-5 查詢：取得 USER 資料表所有用戶資料，並列出前 3 筆（提示：使用limit語法）
-SELECT *
-FROM "USER"
+SELECT * FROM "USER"
 LIMIT 3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 --  ████████  █████   █    ████  
@@ -87,6 +116,29 @@ VALUES
     (SELECT credit_amount FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'),
     (SELECT price FROM "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案')
   );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- ████████  █████   █    ████   
@@ -168,6 +220,25 @@ DELETE FROM "SKILL"
 WHERE name = '空中瑜伽';
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --  ████████  █████   █    █   █ 
 --    █ █   ██    █  █     █   █ 
 --    █ █████ ███ ███      █████ 
@@ -204,6 +275,36 @@ VALUES (
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- ████████  █████   █    █████ 
 --   █ █   ██    █  █     █     
 --   █ █████ ███ ███      ████  
@@ -229,6 +330,8 @@ VALUES (
   '2024-11-24 16:00:00',
   '即將授課'
 );
+
+
 
 -- 好野人預約
 INSERT INTO "COURSE_BOOKING" (user_id, course_id, booking_at, status)
@@ -300,28 +403,26 @@ WHERE
   AND status NOT IN ('課程已取消')
 GROUP BY user_id;
 
--- 5-8. [挑戰題] 查詢：請在一次查詢中，計算用戶王小明的剩餘可用堂數，顯示須包含以下欄位： user_id , remaining_credit
-    -- 提示：
-    -- select ("CREDIT_PURCHASE".total_credit - "COURSE_BOOKING".used_credit) as remaining_credit, ...
-    -- from ( 用戶王小明的購買堂數 ) as "CREDIT_PURCHASE"
-    -- inner join ( 用戶王小明的已使用堂數) as "COURSE_BOOKING"
-    -- on "COURSE_BOOKING".user_id = "CREDIT_PURCHASE".user_id;
-SELECT 
-  cp.user_id,
-  (cp.total_credits - COALESCE(cb.used_credits, 0)) as remaining_credit
-FROM (
-  SELECT user_id, SUM(purchased_credits) as total_credits
-  FROM "CREDIT_PURCHASE"
-  WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
-  GROUP BY user_id
-) cp
-LEFT JOIN (
-  SELECT user_id, COUNT(*) as used_credits
-  FROM "COURSE_BOOKING"
-  WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
-    AND status NOT IN ('課程已取消')
-  GROUP BY user_id
-) cb ON cp.user_id = cb.user_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- ████████  █████   █     ███  
